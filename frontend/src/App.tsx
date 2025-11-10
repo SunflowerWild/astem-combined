@@ -168,7 +168,33 @@ function App() {
 			console.error("Failed to load image.");
 		};
 
-		img.src = URL.createObjectURL(imageFiles[currentImageIndex])
+		useEffect(() => {
+    const file = imageFiles?.[currentImageIndex];
+    if (!file) {
+        // No file selected or index invalid
+        setImage(null);
+        setIsImageLoaded(false);
+        setIsImageTransitioning(false);
+        return;
+    }
+
+    const img = new Image();
+    img.onload = () => {
+        setImage(img);
+        setIsImageLoaded(true);
+
+        toolSystemRef.current?.setCurrentImage(currentImageIndex);
+        setIsImageTransitioning(false);
+    };
+
+    img.onerror = () => {
+        console.error("Failed to load image.");
+        setImage(null);
+        setIsImageLoaded(false);
+        setIsImageTransitioning(false);
+    };
+
+    img.src = URL.createObjectURL(file);
 
 		return () => {
 			img.onload = null;
