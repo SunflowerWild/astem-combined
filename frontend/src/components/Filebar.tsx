@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+﻿import React, { useRef, useState } from 'react';
 import { Menubar, Dialog } from 'radix-ui';
 import {
 	CheckIcon,
@@ -133,9 +133,16 @@ const Filebar: React.FC<FilebarProps> = ({
 			color: '#FF0000'
 		}]);
 	};
+	React.useEffect(() => {
+	if (Object.keys(availableModels).length > 0 && selectedModels.length === 0) {
+		const firstModel = Object.keys(availableModels)[0];
+		onModelSelect([firstModel]);
+	}
+}, [availableModels]);
 
 	return (
-		<Menubar.Root className='MenubarRoot'>
+		<Menubar.Root className='MenubarRoot flex w-full items-center'>
+			
 			{/** FILE */}
 			<Menubar.Menu>
 				<Menubar.Trigger className='MenubarTrigger'>File</Menubar.Trigger>
@@ -186,8 +193,9 @@ const Filebar: React.FC<FilebarProps> = ({
 				</Menubar.Portal>
 			</Menubar.Menu>
 			{/** CNN */}
+			{/** MODEL */}
 			<Menubar.Menu>
-				<Menubar.Trigger className='MenubarTrigger'>Preprocess</Menubar.Trigger>
+				<Menubar.Trigger className='MenubarTrigger'>Models</Menubar.Trigger>
 				<Menubar.Portal>
 					<Menubar.Content
 						className='MenubarContent'
@@ -218,12 +226,6 @@ const Filebar: React.FC<FilebarProps> = ({
 							}}
 						>
 							Upload Model
-						</Menubar.Item>
-						<Menubar.Separator className='MenubarSeparator' />
-						<Menubar.Item className='MenubarItem inset'
-							onClick={onPreprocess}
-						>
-							Preprocess
 						</Menubar.Item>
 					</Menubar.Content>
 				</Menubar.Portal>
@@ -280,6 +282,47 @@ const Filebar: React.FC<FilebarProps> = ({
 					</Menubar.Content>
 				</Menubar.Portal>
 			</Menubar.Menu>
+			<button
+					className="MenubarButton"
+					onClick={onPreprocess}
+				>
+					Preprocess
+			</button>
+			<div className='ml-auto flex items-center gap-2 mr-4'>
+
+				{/** Language Dropdown */}
+				<Menubar.Menu>
+					<Menubar.Trigger className='MenubarTrigger'>Language</Menubar.Trigger>
+					<Menubar.Portal>
+						<Menubar.Content
+							className='MenubarContent w-28'
+							align='start'
+							sideOffset={5}
+							alignOffset={-14}
+						>
+							<Menubar.Sub>
+								<Menubar.SubTrigger className='MenubarSubTrigger'>
+									English
+									<div className='RightSlot'>
+										<ChevronRightIcon />
+									</div>
+								</Menubar.SubTrigger>
+							</Menubar.Sub>
+							{/* Japanese Option */}
+							<Menubar.Sub>
+								<Menubar.SubTrigger className='MenubarSubTrigger'>
+									日本語
+									<div className='RightSlot'>
+										<ChevronRightIcon />
+									</div>
+								</Menubar.SubTrigger>
+							</Menubar.Sub>
+						</Menubar.Content>
+					</Menubar.Portal>
+				</Menubar.Menu>
+			</div>
+
+			{/* Dialog for Editing Classes */}
 			<Dialog.Root open={isClassesDialogOpen} onOpenChange={setIsClassesDialogOpen}>
 				<Dialog.Portal>
 					<Dialog.Overlay className='DialogOverlay' />
