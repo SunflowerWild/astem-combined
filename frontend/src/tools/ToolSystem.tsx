@@ -8,6 +8,7 @@ import RectangleTool from './custom/RectangleTool';
 import PanTool from './custom/PanTool';
 import SelectorTool from './custom/SelectorTool';
 import DeleteTool from './custom/DeleteTool';
+//import UndoTool from './custom/UndoTool';
 import { TriangleRightIcon, TrashIcon } from '@radix-ui/react-icons';
 import React, { type SetStateAction } from 'react';
 import { ConfigManager } from './config_manager';
@@ -53,6 +54,7 @@ export class ToolSystem {
             new SelectorTool(this),
             new RectangleTool(this),
             new DeleteTool(this),
+            //new UndoTool(this),
         ];
         this.annotations = annotations;
         this.selectedAnnotationIDs = selectedAnnotationIDs;
@@ -126,7 +128,6 @@ export class ToolSystem {
             this.keybindMap = this.configManager.getKeybinds();
         }
     }
-
     /**
      * Add new annotation to current image's annotations.
      * @param annotation Annotation to add
@@ -354,7 +355,6 @@ export class ToolSystem {
             }
         }
     }
-
     selectAnnotations(annotationIDs: string[]) {
         this.setSelectedAnnotationIDs(annotationIDs);
 
@@ -529,7 +529,7 @@ export const Toolbar = ({ toolSystem, onToolSelect }: { toolSystem: ToolSystem, 
                         <button
                             key={tool.name}
                             style={{
-				                backgroundColor: '#b03131', // dark red, consistent with gray theme contrast
+                                backgroundColor: '#454545', // dark gray
 				                margin: 2,
 				                padding: 6,
 				                borderRadius: 6,
@@ -543,12 +543,12 @@ export const Toolbar = ({ toolSystem, onToolSelect }: { toolSystem: ToolSystem, 
 			                title="Delete selected annotations"
 			                onMouseEnter={(e) => {
 				                const el = e.currentTarget as HTMLButtonElement;
-				                el.style.backgroundColor = '#962727'; // darker on hover
+                                el.style.backgroundColor = '#b03131'; // dark red on hover
 				                el.style.transform = 'scale(1.05)'; // slight pop effect
 			                }}
 			                onMouseLeave={(e) => {
 				                const el = e.currentTarget as HTMLButtonElement;
-				                el.style.backgroundColor = '#b03131';
+                                el.style.backgroundColor = '#454545';
 				                el.style.transform = 'scale(1.0)';
 			                }}
 			                onClick={() => (tool as any).execute()}

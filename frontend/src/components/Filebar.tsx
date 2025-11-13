@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+﻿import React, { useRef, useState } from 'react';
 import { Menubar, Dialog } from 'radix-ui';
 import {
 	CheckIcon,
@@ -141,7 +141,8 @@ const Filebar: React.FC<FilebarProps> = ({
 }, [availableModels]);
 
 	return (
-		<Menubar.Root className='MenubarRoot'>
+		<Menubar.Root className='MenubarRoot flex w-full items-center'>
+			
 			{/** FILE */}
 			<Menubar.Menu>
 				<Menubar.Trigger className='MenubarTrigger'>File</Menubar.Trigger>
@@ -286,7 +287,41 @@ const Filebar: React.FC<FilebarProps> = ({
 					onClick={onPreprocess}
 				>
 					Preprocess
-				</button>
+			</button>
+			<div className='ml-auto flex items-center gap-2 mr-4'>
+
+				{/** Language Dropdown */}
+				<Menubar.Menu>
+					<Menubar.Trigger className='MenubarTrigger'>Language</Menubar.Trigger>
+					<Menubar.Portal>
+						<Menubar.Content
+							className='MenubarContent w-28'
+							align='start'
+							sideOffset={5}
+							alignOffset={-14}
+						>
+							<Menubar.Sub>
+								<Menubar.SubTrigger className='MenubarSubTrigger'>
+									English
+									<div className='RightSlot'>
+										<ChevronRightIcon />
+									</div>
+								</Menubar.SubTrigger>
+							</Menubar.Sub>
+							{/* Japanese Option */}
+							<Menubar.Sub>
+								<Menubar.SubTrigger className='MenubarSubTrigger'>
+									日本語
+									<div className='RightSlot'>
+										<ChevronRightIcon />
+									</div>
+								</Menubar.SubTrigger>
+							</Menubar.Sub>
+						</Menubar.Content>
+					</Menubar.Portal>
+				</Menubar.Menu>
+			</div>
+
 			{/* Dialog for Editing Classes */}
 			<Dialog.Root open={isClassesDialogOpen} onOpenChange={setIsClassesDialogOpen}>
 				<Dialog.Portal>

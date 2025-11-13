@@ -374,7 +374,7 @@ input {
 }
 
 	.MenubarButton:hover {
-		background-color: var(--color-dark);
+		background-color: #167c0a;
 	}
 .RightSlot {
 	margin-left: auto;

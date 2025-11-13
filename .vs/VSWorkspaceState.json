@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend",
-    "\\db-interface"
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\tools",
+    "\\frontend\\src\\tools\\custom"
   ],
+  "SelectedNode": "\\frontend\\src\\tools\\ToolSystem.tsx",
   "PreviewInSolutionExplorer": false
 }
