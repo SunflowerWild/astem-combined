@@ -1,15 +1,17 @@
 ﻿import React, { useRef, useState } from 'react';
-import { Menubar, Dialog } from 'radix-ui';
+//import { Menubar, Dialog } from 'radix-ui';
+import * as Menubar from '@radix-ui/react-menubar';
+import * as Dialog from '@radix-ui/react-dialog';
 import {
 	CheckIcon,
 	ChevronRightIcon,
 	Cross2Icon,
-	DotFilledIcon
+	DotFilledIcon,
+	GlobeIcon
 } from '@radix-ui/react-icons';
 import './styles.css';
 import { ConfigManager } from '../tools/config_manager';
 import type ToolSystem from '../tools/ToolSystem';
-
 const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs'];
 
 interface FilebarProps {
@@ -292,30 +294,20 @@ const Filebar: React.FC<FilebarProps> = ({
 
 				{/** Language Dropdown */}
 				<Menubar.Menu>
-					<Menubar.Trigger className='MenubarTrigger'>Language</Menubar.Trigger>
+					<Menubar.Trigger className='MenubarTrigger flex items-center gap-2'>
+						<GlobeIcon style={{ fontSize: 18 }} />
+						Language
+					</Menubar.Trigger>
 					<Menubar.Portal>
 						<Menubar.Content
-							className='MenubarContent w-28'
+							className='MenubarContent w-56'
 							align='start'
 							sideOffset={5}
 							alignOffset={-14}
 						>
 							<Menubar.Sub>
-								<Menubar.SubTrigger className='MenubarSubTrigger'>
-									English
-									<div className='RightSlot'>
-										<ChevronRightIcon />
-									</div>
-								</Menubar.SubTrigger>
-							</Menubar.Sub>
-							{/* Japanese Option */}
-							<Menubar.Sub>
-								<Menubar.SubTrigger className='MenubarSubTrigger'>
-									日本語
-									<div className='RightSlot'>
-										<ChevronRightIcon />
-									</div>
-								</Menubar.SubTrigger>
+								<Menubar.Item className='MenubarItem'>English</Menubar.Item>
+								<Menubar.Item className='MenubarItem'>日本語</Menubar.Item>
 							</Menubar.Sub>
 						</Menubar.Content>
 					</Menubar.Portal>
