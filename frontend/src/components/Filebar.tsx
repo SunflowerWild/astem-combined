@@ -12,6 +12,9 @@ import {
 import './styles.css';
 import { ConfigManager } from '../tools/config_manager';
 import type ToolSystem from '../tools/ToolSystem';
+import i18n from '../tools/i18n';
+import { useTranslation } from "react-i18next";
+
 const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs'];
 
 interface FilebarProps {
@@ -44,6 +47,9 @@ const Filebar: React.FC<FilebarProps> = ({
 	onExportAll,
 	onExportCurrent,
 }) => {
+
+	//language
+	const { t } = useTranslation("filebar");
 
 	const [checkedSelection, setCheckedSelection] = useState([
 		CHECK_ITEMS[1],
@@ -147,7 +153,7 @@ const Filebar: React.FC<FilebarProps> = ({
 			
 			{/** FILE */}
 			<Menubar.Menu>
-				<Menubar.Trigger className='MenubarTrigger'>File</Menubar.Trigger>
+				<Menubar.Trigger className='MenubarTrigger'>{t("file")}</Menubar.Trigger>
 				<Menubar.Portal>
 					<Menubar.Content
 						className='MenubarContent'
@@ -163,12 +169,12 @@ const Filebar: React.FC<FilebarProps> = ({
 								}
 							}}
 						>
-							Open <div className='RightSlot'>CTRL + O</div>
+							{t("open")} <div className='RightSlot'>CTRL + O</div>
 						</Menubar.Item>
 						<Menubar.Separator className='MenubarSeparator' />
 						<Menubar.Sub>
 							<Menubar.SubTrigger className='MenubarSubTrigger'>
-								Export
+								{t("export")}
 								<div className='RightSlot'>
 									<ChevronRightIcon />
 								</div>
@@ -181,12 +187,12 @@ const Filebar: React.FC<FilebarProps> = ({
 									<Menubar.Item className='MenubarItem'
 										onClick={onExportAll}
 									>
-										Export All
+										{t("exportAll")}
 									</Menubar.Item>
 									<Menubar.Item className='MenubarItem'
 										onClick={onExportCurrent}
 									>
-										Export Current
+										{t("exportCurr")}
 									</Menubar.Item>
 								</Menubar.SubContent>
 							</Menubar.Portal>
@@ -197,7 +203,7 @@ const Filebar: React.FC<FilebarProps> = ({
 			{/** CNN */}
 			{/** MODEL */}
 			<Menubar.Menu>
-				<Menubar.Trigger className='MenubarTrigger'>Models</Menubar.Trigger>
+				<Menubar.Trigger className='MenubarTrigger'>{t("models")}</Menubar.Trigger>
 				<Menubar.Portal>
 					<Menubar.Content
 						className='MenubarContent'
@@ -227,14 +233,14 @@ const Filebar: React.FC<FilebarProps> = ({
 								}
 							}}
 						>
-							Upload Model
+							{t("uploadModel")}
 						</Menubar.Item>
 					</Menubar.Content>
 				</Menubar.Portal>
 			</Menubar.Menu>
 			{/** CONFIG */}
 			<Menubar.Menu>
-				<Menubar.Trigger className='MenubarTrigger'>Config</Menubar.Trigger>
+				<Menubar.Trigger className='MenubarTrigger'>{t("config")}</Menubar.Trigger>
 				<Menubar.Portal>
 					<Menubar.Content
 						className='MenubarContent'
@@ -244,7 +250,7 @@ const Filebar: React.FC<FilebarProps> = ({
 					>
 						<Menubar.Sub>
 							<Menubar.SubTrigger className='MenubarSubTrigger'>
-								Classes
+								{t("classes")}
 								<div className='RightSlot'>
 									<ChevronRightIcon />
 								</div>
@@ -276,7 +282,7 @@ const Filebar: React.FC<FilebarProps> = ({
 										className='MenubarItem'
 										onClick={() => setIsClassesDialogOpen(true)}
 									>
-										Edit Classes...
+										{t("editClasses")}
 									</Menubar.Item>
 								</Menubar.SubContent>
 							</Menubar.Portal>
@@ -288,7 +294,7 @@ const Filebar: React.FC<FilebarProps> = ({
 					className="MenubarButton"
 					onClick={onPreprocess}
 				>
-					Preprocess
+				{t("preprocess")}
 			</button>
 			<div className='ml-auto flex items-center gap-2 mr-4'>
 
@@ -296,7 +302,7 @@ const Filebar: React.FC<FilebarProps> = ({
 				<Menubar.Menu>
 					<Menubar.Trigger className='MenubarTrigger flex items-center gap-2'>
 						<GlobeIcon style={{ fontSize: 18 }} />
-						Language
+						{t("language")}
 					</Menubar.Trigger>
 					<Menubar.Portal>
 						<Menubar.Content
@@ -305,10 +311,19 @@ const Filebar: React.FC<FilebarProps> = ({
 							sideOffset={5}
 							alignOffset={-14}
 						>
-							<Menubar.Sub>
-								<Menubar.Item className='MenubarItem'>English</Menubar.Item>
-								<Menubar.Item className='MenubarItem'>日本語</Menubar.Item>
-							</Menubar.Sub>
+							<Menubar.Item
+								className='MenubarItem'
+								onClick={() => i18n.changeLanguage("en")}
+							>
+								English
+							</Menubar.Item>
+
+							<Menubar.Item
+								className='MenubarItem'
+								onClick={() => i18n.changeLanguage("ja")}
+							>
+								日本語
+							</Menubar.Item>
 						</Menubar.Content>
 					</Menubar.Portal>
 				</Menubar.Menu>
